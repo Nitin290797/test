@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { View, FlatList, Dimensions, TouchableOpacity, Text, TextInput, Modal, Button } from 'react-native';
-import VideoPlayer from 'react-native-video-player';
+
 import YoutubePlayer from 'react-native-youtube-iframe';
 
 const { height } = Dimensions.get('window');
@@ -8,8 +8,10 @@ const { height } = Dimensions.get('window');
 const initialReelsData = [
   { id: '1', videoUrl: 'Ilu5ei_Mbbc', type: 'youtube', likes: 0, comments: [] },
   { id: '2', videoUrl: '_1GRjRH9tKA', type: 'youtube', likes: 0, comments: [] },
-  { id: '3', videoUrl: 'https://instagram.fdel1-1.fna.fbcdn.net/v/t50.2886-16/131265170_226065939114926_2060867850971860273_n.mp4', type: 'video', likes: 0, comments: [] },
-  { id: '4', videoUrl: 'https://scontent.fdel1-1.fna.fbcdn.net/v/t39.30808-6/272800381_101587892598084_1356409704804413466_n.mp4', type: 'video', likes: 0, comments: [] },
+  { id: '3', videoUrl: 'OdYs42Eg3Ac', type: 'youtube', likes: 0, comments: [] },
+  { id: '4', videoUrl: 'Zh0Jpl4ObW4', type: 'youtube', likes: 0, comments: [] },
+  { id: '5', videoUrl: 'q2rl3X2owS4', type: 'youtube', likes: 0, comments: [] },
+  { id: '6', videoUrl: 'ZcpnIujb150', type: 'youtube', likes: 0, comments: [] },
 ];
 
 const FirstPage = () => {
@@ -49,26 +51,13 @@ const FirstPage = () => {
   };
 
   const renderItem = ({ item, index }) => (
-    <View style={{ height, justifyContent: 'center' }}>
-      {item.type === 'youtube' ? (
+    <View style={{ height, justifyContent: 'center', backgroundColor:'#000' }}>
         <YoutubePlayer
           height={300}
           play={currentIndex === index}
           videoId={item.videoUrl}
           onChangeState={(state) => console.log(state)}
         />
-      ) : (
-        <VideoPlayer
-          video={{ uri: item.videoUrl }}
-          videoWidth={Dimensions.get('window').width}
-          videoHeight={height}
-          ref={(ref) => (videoRefs.current[index] = ref)}
-          autoplay={currentIndex === index}
-          loop
-          resizeMode="cover"
-          disableFullscreen={true}
-        />
-      )}
       {/* Like and Comment Buttons */}
       <TouchableOpacity
         style={{ position: 'absolute', bottom: 100, right: 20 }}
@@ -105,15 +94,18 @@ const FirstPage = () => {
           <FlatList
             data={currentComments}
             keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item }) => <Text>{item}</Text>}
+            renderItem={({ item }) => <Text style={{color:'#000'}}>{item}</Text>}
           />
           <TextInput
             value={newComment}
             onChangeText={setNewComment}
             placeholder="Add a comment"
-            style={{ borderWidth: 1, padding: 8, marginBottom: 16 }}
+            placeholderTextColor={'#000'}
+            style={{ borderWidth: 1, padding: 8, marginBottom: 16, color:'#000' }}
           />
+          <View style={{marginBottom:10}}>
           <Button title="Submit" onPress={() => addComment(reelsData[currentIndex].id)} />
+          </View>
           <Button title="Close" onPress={() => setCommentModalVisible(false)} />
         </View>
       </Modal>
